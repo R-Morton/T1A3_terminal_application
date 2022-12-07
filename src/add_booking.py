@@ -1,3 +1,5 @@
+import os
+from time import sleep
 bookings_file = open("src/bookings_list.txt", "a+")
 def add_booking():
     name = input("Please enter name: ")
@@ -7,6 +9,7 @@ def add_booking():
         print("3 - Dinner")
         service = int(input("Please enter a number to select service: "))
         if service == 1:
+            service_name = "Breakfast"
             while True:
                 time = int(input("Please enter a time between 0700 and 1200: "))
                 if time < 700 or time > 1200:
@@ -16,6 +19,7 @@ def add_booking():
                     break
             break
         if service == 2:
+            service_name = "Lunch"
             while True:
                 time = int(input("Please enter a time between 1200 and 1530: "))
                 if time < 1200 or time > 1530:
@@ -25,6 +29,7 @@ def add_booking():
                     break
             break
         if service == 3:
+            service_name = "Dinner"
             while True:
                 time = int(input("Please enter a time between 1730 and 2100: "))
                 if time < 1730 or time > 2100:
@@ -47,6 +52,24 @@ def add_booking():
         else:
             break
     new_booking = str(name + " " + str(service) + " " + str(time) + " " + str(pax))
-    bookings_file.write("\n" + new_booking)
-    bookings_file.flush()
-    print("Booking has sucessfully been added")
+    os.system('clear')
+    print("Booking details:")
+    print(f"Name - {name}")
+    print(f"Service - {service_name}")
+    print(f"Time - {time}")
+    print(f"Number of Guests - {pax}")
+    while True:
+        add_confirmation = input("Please confirm with 'Y' to add booking or 'N' to cancel")
+        if add_confirmation.lower() == 'y':
+            bookings_file.write("\n" + new_booking)
+            bookings_file.flush()
+            print("Booking has sucessfully been added")
+            sleep(2)
+            break
+        elif add_confirmation.lower() == 'n':
+            print("Booking process has been cancelled")
+            sleep(2)
+            break
+        else:
+            print("Please input a valid response")
+            continue
