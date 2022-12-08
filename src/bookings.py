@@ -1,6 +1,7 @@
 # Create home page where user selects options to choose from
 import os
 import time
+from view_bookings import view_bookings_menu
 from add_booking import add_booking
 def home_page():
     while True:
@@ -13,6 +14,9 @@ def home_page():
         if user_input == 2:
             os.system('clear')
             add_booking()
+        if user_input == 1:
+            os.system('clear')
+            view_bookings_menu()
         if user_input == 4:
             print("Goodbye!")
             time.sleep(2)
