@@ -11,8 +11,8 @@ def add_booking():
         if service == 1:
             service_name = "Breakfast"
             while True:
-                time = int(input("Please enter a time between 0700 and 1200: "))
-                if time < 700 or time > 1200:
+                time = input("Please enter a time between 0700 and 1200: ")
+                if int(time.zfill(1)) < 700 or int(time) > 1200:
                     print("Please enter a valid time")
                     continue
                 else:
@@ -51,7 +51,7 @@ def add_booking():
             continue
         else:
             break
-    new_booking = str(name + " " + str(service) + " " + str(time) + " " + str(pax))
+    new_booking = str(str(time) + " " + str(service) + " " + name + " " + str(pax))
     os.system('clear')
     print("Booking details:")
     print(f"Name - {name}")

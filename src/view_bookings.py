@@ -6,12 +6,19 @@ def view_bookings_menu():
     print("3 - Dinner")
     print("4 - Go back")
     user_input = int(input("Please select a service to view: "))
-    if user_input == 1: 
-        view_file()
+    if user_input == 1:
+        os.system("clear")
+        print("Breakfast bookings -")
+        view_file('1')
 
-def view_file():
-    lines = bookings_file.readlines()
-    for line in lines:
-        print(line)
+def view_file(service):
+    for line in bookings_file.readlines():
+        if line.split()[1] == service:
+            print(line)
+        else:
+            continue
+        
+
+
 
 view_bookings_menu()
