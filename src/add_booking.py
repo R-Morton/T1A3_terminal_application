@@ -2,7 +2,18 @@ import os
 from time import sleep
 bookings_file = open("src/bookings_list.txt", "a+")
 def add_booking():
-    name = input("Please enter name: ")
+    while True:
+        f_name = input("Please enter first name: ")
+        if f_name.isspace() == True or f_name == "":
+            print("This cannot be left blank")
+        else:
+            break
+    while True:
+        l_name = input("Please enter last name: ")
+        if l_name.isspace() == True or l_name == "":
+            print("This cannot be left blank")
+        else:
+            break
     while True:
         print("1 - Breakfast")
         print("2 - Lunch")
@@ -51,10 +62,10 @@ def add_booking():
             continue
         else:
             break
-    new_booking = str(str(time) + " " + str(service) + " " + name + " " + str(pax))
+    new_booking = str(str(time) + " " + str(service) + " " + f_name + " " + l_name + " " + str(pax))
     os.system('clear')
     print("Booking details:")
-    print(f"Name - {name}")
+    print(f"Name - {f_name} {l_name}")
     print(f"Service - {service_name}")
     print(f"Time - {time}")
     print(f"Number of Guests - {pax}")

@@ -1,5 +1,7 @@
-1830 3 Ralph 7
-1400 2 Kim 3
-1230 2 Jerry 5
-1930 3 Ben 2
-0800 1 Rhys 6
+1830 3 Ralph Winters 7
+1400 2 Kim Summers 3
+1230 2 Jerry Springer 5
+1930 3 Ben Johnson 2
+1800 3 Rhys Morton 3
+0830 1 Liam Lover 2
+1030 1 Stalin Hifler 5

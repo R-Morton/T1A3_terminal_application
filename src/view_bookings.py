@@ -32,13 +32,11 @@ def view_file(service):
     covers = 0
     for line in reservations:
         if line.split()[1] == service or service == "all":
-            print(f"{line.split()[0]} - {line.split()[2]} - {line.split()[3]}pax")
-            covers += int(line.split()[3])
+            print(f"{line.split()[0]} - {line.split()[2]} {line.split()[3]} - {line.split()[4]}pax")
+            covers += int(line.split()[4])
         else:
             continue
     print(f"Total covers - {covers}")
-    user_input = input("Enter 0 to go back: ")
-    if user_input == '0':
-        view_bookings_menu()
-
-view_bookings_menu()
+    input("Press enter to go back")
+    os.system("clear")
+    view_bookings_menu()
