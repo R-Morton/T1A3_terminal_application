@@ -3,5 +3,6 @@
 1230 2 Jerry Springer 5
 1930 3 Ben Johnson 2
 1800 3 Rhys Morton 3
+1830 3 Rhys Morton 5
 0830 1 Liam Lover 2
 1030 1 Stalin Hifler 5
