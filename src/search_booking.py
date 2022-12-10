@@ -1,3 +1,6 @@
+from add_booking import booking_name
+from add_booking import booking_time
+from add_booking import pax
 def search_booking():
     bookings_file = open("src/bookings_list.txt", "r")
     name_search = input("Please type the first or last name of the customer: ")
@@ -21,17 +24,33 @@ def search_booking():
             count += 1
             continue
     edit_continue = input("Please press 1 to edit or 0 to go back: ")
-    if edit_continue == 1:
+    if edit_continue == '1':
         edit_booking(selected_booking)
 
 
 
 
 def edit_booking(booking):
-    bookings_file = open("src/bookings_list.txt", "a+")
-    user_input = input("What would you like to change? ")
     print("1 - Name")
     print("2 - Time")
     print("3 - PAX")
+    user_input = input("What would you like to change? ")
+    match user_input:
+        case "1":
+            new_first, new_last = booking_name()
+            a = booking.replace(booking.split()[2], new_first, 1)
+            new_booking = a.replace(booking.split()[3], new_last, 1)
+        case "2":
+            new_service, new_time, new_service_name = booking_time()
+            a = booking.replace(booking.split()[1], str(new_service), 1)
+            new_booking = a.replace(booking.split()[0], new_time, 1)  
+        case "3":
+            print("PAX")
+            new_pax = pax()
+            a = booking.rsplit(booking.split()[4], 1)
+            new_booking = str(new_pax).join(a)
+        case _:
+            print("Invalid")
 
+#edit_booking()
 search_booking()
