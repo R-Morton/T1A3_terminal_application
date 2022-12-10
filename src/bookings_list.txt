@@ -7,3 +7,4 @@
 0830 1 Liam Lover 2
 1030 1 Stalin Hifler 5
 2000 3 Tom Brady 4
+0800 1 Garry Dickson 6

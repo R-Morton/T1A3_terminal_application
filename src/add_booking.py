@@ -3,9 +3,10 @@ from time import sleep
 bookings_file = open("src/bookings_list.txt", "a+")
 def add_booking():
     first, last = booking_name()
-    service, time, service_name = booking_time()
+    service, time = booking_time()
     pax_variable = pax()
-    new_booking = confirm_booking(first, last, time, service_name, service, pax_variable)
+    new_booking = f"{str(time)} {str(service)} {first} {last} {str(pax_variable)}"
+    confirm_booking(new_booking)
     if new_booking == False:
         pass
     else:
@@ -34,7 +35,6 @@ def booking_time():
         print("3 - Dinner")
         service = int(input("Please enter a number to select service: "))
         if service == 1:
-            service_name = "Breakfast"
             while True:
                 time = input("Please enter a time between 0700 and 1200: ")
                 if int(time.zfill(1)) < 700 or int(time) > 1200:
@@ -44,7 +44,6 @@ def booking_time():
                     break
             break
         if service == 2:
-            service_name = "Lunch"
             while True:
                 time = int(input("Please enter a time between 1200 and 1530: "))
                 if time < 1200 or time > 1530:
@@ -54,7 +53,6 @@ def booking_time():
                     break
             break
         if service == 3:
-            service_name = "Dinner"
             while True:
                 time = int(input("Please enter a time between 1730 and 2100: "))
                 if time < 1730 or time > 2100:
@@ -66,7 +64,7 @@ def booking_time():
         else:
             print("Please select a valid option")
             continue
-    return service, time, service_name
+    return service, time
 
 def pax():
     while True:
@@ -81,20 +79,25 @@ def pax():
             break
     return pax
 
-def confirm_booking(first, last, time, service_name, service, pax):
-    new_booking = f"{str(time)} {str(service)} {first} {last} {str(pax)}"
+def confirm_booking(booking):
     os.system('clear')
+    if booking.split()[1] == '1':
+        service_name = "Breakfast"
+    elif booking.split()[1] == '2':
+        service_name = "Lunch"
+    elif booking.split()[1] == '3':
+        service_name = "Dinner"
     print("Booking details:")
-    print(f"Name - {first} {last}")
+    print(f"Name - {booking.split()[2]} {booking.split()[3]}")
     print(f"Service - {service_name}")
-    print(f"Time - {time}")
-    print(f"Number of Guests - {pax}")
+    print(f"Time - {booking.split()[0]}")
+    print(f"Number of Guests - {booking.split()[4]}")
     while True:
         add_confirmation = input("Please confirm with 'Y' to add booking or 'N' to cancel: ")
         if add_confirmation.lower() == 'y':
             print("Booking has sucessfully been added")
             sleep(2)
-            return new_booking
+            return booking
         elif add_confirmation.lower() == 'n':
             print("Booking process has been cancelled")
             sleep(2)
