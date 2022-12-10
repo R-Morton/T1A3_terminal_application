@@ -1,7 +1,16 @@
 import os
 from time import sleep
+from bookings import home_page
 bookings_file = open("src/bookings_list.txt", "a+")
 def add_booking():
+    first, last = booking_name()
+    service, time, service_name = booking_time()
+    pax_variable = pax()
+    new_booking = confirm_booking(first, last, time, service_name, service, pax_variable)
+    bookings_file.write("\n" + new_booking)
+    bookings_file.flush()
+
+def booking_name():
     while True:
         f_name = input("Please enter first name: ")
         if f_name.isspace() == True or f_name == "":
@@ -14,6 +23,9 @@ def add_booking():
             print("This cannot be left blank")
         else:
             break
+    return f_name, l_name
+
+def booking_time():
     while True:
         print("1 - Breakfast")
         print("2 - Lunch")
@@ -52,6 +64,9 @@ def add_booking():
         else:
             print("Please select a valid option")
             continue
+    return service, time, service_name
+
+def pax():
     while True:
         pax = int(input("How many guests are attending?: "))
         if pax <= 0:
@@ -62,25 +77,26 @@ def add_booking():
             continue
         else:
             break
-    new_booking = str(str(time) + " " + str(service) + " " + f_name + " " + l_name + " " + str(pax))
+    return pax
+
+def confirm_booking(first, last, time, service_name, service, pax):
+    new_booking = f"{str(time)} {str(service)} {first} {last} {str(pax)}"
     os.system('clear')
     print("Booking details:")
-    print(f"Name - {f_name} {l_name}")
+    print(f"Name - {first} {last}")
     print(f"Service - {service_name}")
     print(f"Time - {time}")
     print(f"Number of Guests - {pax}")
     while True:
         add_confirmation = input("Please confirm with 'Y' to add booking or 'N' to cancel")
         if add_confirmation.lower() == 'y':
-            bookings_file.write("\n" + new_booking)
-            bookings_file.flush()
             print("Booking has sucessfully been added")
             sleep(2)
-            break
+            return new_booking
         elif add_confirmation.lower() == 'n':
             print("Booking process has been cancelled")
             sleep(2)
-            break
+            home_page()
         else:
             print("Please input a valid response")
             continue
