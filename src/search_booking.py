@@ -61,10 +61,19 @@ def edit_booking(booking):
             case "4":
                 if count == True:
                     confirm_booking(new_booking)
+                    break
                 else:
                     print("Invalid")
             case _:
                 print("Invalid")
+    with open("src/bookings_list.txt", "r") as f:
+        lines = f.readlines()
+    with open("src/bookings_list.txt", "w") as f:
+        for line in lines:
+            if line.strip('/n') != booking:
+                f.write(line)
+        f.write("\n" + new_booking)
+    
 
 #edit_booking()
 search_booking()
