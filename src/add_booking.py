@@ -1,14 +1,16 @@
 import os
 from time import sleep
-from bookings import home_page
 bookings_file = open("src/bookings_list.txt", "a+")
 def add_booking():
     first, last = booking_name()
     service, time, service_name = booking_time()
     pax_variable = pax()
     new_booking = confirm_booking(first, last, time, service_name, service, pax_variable)
-    bookings_file.write("\n" + new_booking)
-    bookings_file.flush()
+    if new_booking == False:
+        pass
+    else:
+        bookings_file.write("\n" + new_booking)
+        bookings_file.flush()
 
 def booking_name():
     while True:
@@ -88,7 +90,7 @@ def confirm_booking(first, last, time, service_name, service, pax):
     print(f"Time - {time}")
     print(f"Number of Guests - {pax}")
     while True:
-        add_confirmation = input("Please confirm with 'Y' to add booking or 'N' to cancel")
+        add_confirmation = input("Please confirm with 'Y' to add booking or 'N' to cancel: ")
         if add_confirmation.lower() == 'y':
             print("Booking has sucessfully been added")
             sleep(2)
@@ -96,7 +98,7 @@ def confirm_booking(first, last, time, service_name, service, pax):
         elif add_confirmation.lower() == 'n':
             print("Booking process has been cancelled")
             sleep(2)
-            home_page()
+            return False
         else:
             print("Please input a valid response")
             continue
