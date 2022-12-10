@@ -18,14 +18,17 @@ def booking_name():
         f_name = input("Please enter first name: ")
         if f_name.isspace() == True or f_name == "":
             print("This cannot be left blank")
+            os.system('clear')
         else:
             break
     while True:
         l_name = input("Please enter last name: ")
         if l_name.isspace() == True or l_name == "":
             print("This cannot be left blank")
+            os.system('clear')
         else:
             break
+    os.system('clear')
     return f_name, l_name
 
 def booking_time():
@@ -33,36 +36,44 @@ def booking_time():
         print("1 - Breakfast")
         print("2 - Lunch")
         print("3 - Dinner")
-        service = int(input("Please enter a number to select service: "))
-        if service == 1:
+        service = input("Please enter a number to select service: ")
+        if service == '1':
             while True:
                 time = input("Please enter a time between 0700 and 1200: ")
                 if int(time.zfill(1)) < 700 or int(time) > 1200:
                     print("Please enter a valid time")
-                    continue
+                    sleep(2)
+                    os.system('clear')
                 else:
+                    os.system('clear')
                     break
             break
-        if service == 2:
+        elif service == '2':
             while True:
                 time = int(input("Please enter a time between 1200 and 1530: "))
                 if time < 1200 or time > 1530:
                     print("Please enter a valid time")
-                    continue
+                    sleep(2)
+                    os.system('clear')
                 else:
+                    os.system('clear')
                     break
             break
-        if service == 3:
+        elif service == '3':
             while True:
                 time = int(input("Please enter a time between 1730 and 2100: "))
                 if time < 1730 or time > 2100:
                     print("Please enter a valid time")
-                    continue
+                    sleep(2)
+                    os.system('clear')
                 else:
+                    os.system('clear')
                     break
             break
         else:
             print("Please select a valid option")
+            sleep(2)
+            os.system('clear')
             continue
     return service, time
 
@@ -71,10 +82,12 @@ def pax():
         pax = int(input("How many guests are attending?: "))
         if pax <= 0:
             print("Please enter atleast one or more guests")
-            continue
+            sleep(2)
+            os.system('clear')
         elif pax >20:
             print("Bookings above 20 must be refered to the functions team")
-            continue
+            sleep(2)
+            os.system('clear')
         else:
             break
     return pax

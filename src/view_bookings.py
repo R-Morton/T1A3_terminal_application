@@ -1,29 +1,38 @@
 import os
+from time import sleep
 def view_bookings_menu():
-    print("1 - All Services")
-    print("2 - Breakfast")
-    print("3 - Lunch")
-    print("4 - Dinner")
-    print("5 - Go back")
-    user_input = int(input("Please select a service to view: "))
-    if user_input == 1:
-        os.system("clear")
-        print("All Services -")
-        view_file('all')
-    elif user_input == 2:
-        os.system("clear")
-        print("Breakfast bookings -")
-        view_file('1')
-    elif user_input == 3:
-        os.system("clear")
-        print("Lunch bookings -")
-        view_file('2')
-    elif user_input == 4:
-        os.system("clear")
-        print("Dinner bookings -")
-        view_file('3')
-    elif user_input == 5:
-        pass
+    while True:
+        print("1 - All Services")
+        print("2 - Breakfast")
+        print("3 - Lunch")
+        print("4 - Dinner")
+        print("5 - Go back")
+        user_input = input("Please select a service to view: ")
+        match user_input:
+            case '1':
+                os.system("clear")
+                print("All Services -")
+                view_file('all')
+            case '2':
+                os.system("clear")
+                print("Breakfast bookings -")
+                view_file('1')
+            case '3':
+                os.system("clear")
+                print("Lunch bookings -")
+                view_file('2')
+            case '4':
+                os.system("clear")
+                print("Dinner bookings -")
+                view_file('3')
+            case '5':
+                break
+            case _:
+                print("Please input a valid option")
+                sleep(1)
+                os.system('clear')
+                continue
+
 
 def view_file(service):
     bookings_file = open("src/bookings_list.txt", "r")

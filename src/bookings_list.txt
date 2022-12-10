@@ -8,3 +8,5 @@
 2000 3 Tom Brady 4
 0800 1 Garry Dickson 6
 1800 3 Reece Norton 3
+2030 3 Pablo Deskobar 15
+1200 2 Tom Cruise 4
