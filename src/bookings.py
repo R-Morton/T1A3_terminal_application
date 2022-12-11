@@ -238,7 +238,7 @@ def search_booking():
     matching_names = []
     results = 0
     while True:
-        name_search = input("Please type the first or last name of the customer: ")
+        name_search = input("Please enter the name of a customer: ")
         if name_search.isspace() == True or name_search == "":
             print("Please enter a name")
             sleep(2)
@@ -248,14 +248,19 @@ def search_booking():
             break
     for line in bookings_file.readlines():
         lower_line = line.lower()
+        lower_name = name_search.lower()
         if line.strip() == "":
             continue
-        elif name_search.lower() == lower_line.split()[2] or name_search.lower() == lower_line.split()[3]:
+        elif name_search.lower() == lower_line.split()[2] or name_search.lower() == lower_line.split()[3] or name_search.lower() == f'{lower_line.split()[2]} {lower_line.split()[3]}':
             results += 1
             matching_names.append(line)
             print(f"{results} - {line.split()[0]} {line.split()[2]} {line.split()[3]} {line.split()[4]}pax")
         else:
             continue
+    if not matching_names:
+        print("No matches found")
+        sleep(2)
+        search_booking()
     user_input = int(input("Please select from the matches: "))
     count = 1
     for booking in matching_names:
