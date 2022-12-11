@@ -287,12 +287,14 @@ def search_booking():
 def edit_booking(booking):
     new_booking = booking
     count = False
+    delete = False
     while True:
         print("1 - Name")
         print("2 - Time")
         print("3 - PAX")
+        print("4 - Delete booking")
         if count == True:
-            print("4 - Finished with changes")
+            print("5 - Finished with changes")
         user_input = input("What would you like to change? ")
         match user_input:
             case "1":
@@ -314,6 +316,14 @@ def edit_booking(booking):
                 new_booking = str(new_pax).join(a)
                 count = True
             case "4":
+                os.system('clear')
+                check = input("Press enter to confirm you want to delete or press 0 to cancel")
+                if check == "0":
+                    continue
+                else:
+                    delete = True
+                    break
+            case "5":
                 if count == True:
                     os.system('clear')
                     confirm_booking(new_booking, False)
@@ -331,11 +341,15 @@ def edit_booking(booking):
         lines = f.readlines()
     with open("src/bookings_list.txt", "w") as f:
         for line in lines:
-            if line != booking:
+            if line != booking and line.strip() != "":
                 f.write(line)
-        f.write("\n" + new_booking)
-        print("Your booking has successfully been edited")
-        sleep(3)
+        if delete == False:
+            f.write("\n" + new_booking)
+            print("Your booking has successfully been edited")
+            sleep(3)
+        elif delete == True:
+            print("The booking has successfully been deleted")
+            sleep(3)
     home_page()
 
 home_page()
