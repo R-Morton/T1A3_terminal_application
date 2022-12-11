@@ -1,7 +1,6 @@
-# Create home page where user selects options to choose from
 import os
 from time import sleep
-def home_page():
+def home_page(): #Home page that displays all feature options
     while True:
         os.system('clear')
         print("1 - View today's bookings")
@@ -29,7 +28,7 @@ def home_page():
                 os.system('clear')
                 continue
 
-def add_booking():
+def add_booking(): #Declares multiple variables from return values of functions
     bookings_file = open("src/bookings_list.txt", "a+")
     first, last = booking_name()
     service, time = booking_time()
@@ -38,13 +37,13 @@ def add_booking():
     confirm_booking(new_booking, False)
     if new_booking == False:
         pass
-    else:
+    else: #Writes new booking in once all functions passed
         bookings_file.write("\n" + new_booking)
         bookings_file.flush()
         print("Booking has sucessfully been added")
         sleep(3)
 
-def booking_name():
+def booking_name(): #Returns first and last name
     while True:
         f_name = input("Please enter first name: ")
         if f_name.isspace() == True or f_name == "":
@@ -72,7 +71,7 @@ def booking_name():
     os.system('clear')
     return f_name, l_name
 
-def booking_time():
+def booking_time(): #Returns service and time
     while True:
         print("1 - Breakfast")
         print("2 - Lunch")
@@ -105,7 +104,7 @@ def booking_time():
             else:
                 return service, time
 
-def time_checker(time):
+def time_checker(time): #Function that checks time input isnt above 60 minutes for each hour
     count = 1
     for x in str(time):
         if count == 3:
@@ -118,7 +117,7 @@ def time_checker(time):
                 return True
         count += 1
 
-def pax():
+def pax(): #PAX is the term used to say how many people are dining in the booking
     while True:
         pax = int(input("How many guests are attending?: "))
         if pax <= 0:
@@ -134,9 +133,9 @@ def pax():
             break
     return pax
 
-def confirm_booking(booking, edit):
+def confirm_booking(booking, edit): #Function to layout all the information for confirmation
     os.system('clear')
-    if booking.split()[1] == '1':
+    if booking.split()[1] == '1': #If statements to turn the 'service' int into a string to label the service for confirmation
         service_name = "Breakfast"
     elif booking.split()[1] == '2':
         service_name = "Lunch"
@@ -147,7 +146,7 @@ def confirm_booking(booking, edit):
     print(f"Service - {service_name}")
     print(f"Time - {booking.split()[0]}")
     print(f"Number of Guests - {booking.split()[4]}")
-    if edit == True:
+    if edit == True: #If true, this will skip the rest and we are editing not creating. 
         return
     while True:
         add_confirmation = input("Please confirm with 'Y' to add booking or 'N' to cancel: ")
@@ -161,7 +160,7 @@ def confirm_booking(booking, edit):
             print("Please input a valid response")
             continue
 
-def view_bookings_menu():
+def view_bookings_menu(): #A menu to choose what service to view bookings for, pushing the service as an argument to next function.
     while True:
         print("1 - All Services")
         print("2 - Breakfast")
@@ -195,7 +194,7 @@ def view_bookings_menu():
                 continue
 
 
-def view_file(service):
+def view_file(service): #Using the service parameter/argument, prints the relevant bookings
     bookings_file = open("src/bookings_list.txt", "r")
     reservations = bookings_file.readlines()
     reservations.sort()
@@ -203,9 +202,9 @@ def view_file(service):
     for line in reservations:
         if line.strip() == "":
             continue
-        elif line.split()[1] == service or service == "all":
+        elif line.split()[1] == service or service == "all": #Compares the service number saved in text file, to service parameter
             print(f"{line.split()[0]} - {line.split()[2]} {line.split()[3]} - {line.split()[4]}pax")
-            covers += int(line.split()[4])
+            covers += int(line.split()[4]) #Adding up total covers (amount of guests in booking or PAX) to display total 
         else:
             continue
     print(f"Total covers - {covers}")
@@ -213,13 +212,13 @@ def view_file(service):
     os.system("clear")
     view_bookings_menu()
 
-def search_booking():
+def search_booking(): #Function for searching for a customer before editing
     bookings_file = open("src/bookings_list.txt", "r")
     matching_names = []
     results = 0
     while True:
         name_search = input("Please enter the name of a customer: ")
-        if name_search.isspace() == True or name_search == "":
+        if name_search.isspace() == True or name_search == "": #stops user from entering no name
             print("Please enter a name")
             sleep(2)
             os.system("clear")
@@ -228,12 +227,11 @@ def search_booking():
             break
     for line in bookings_file.readlines():
         lower_line = line.lower()
-        lower_name = name_search.lower()
         if line.strip() == "":
             continue
-        elif name_search.lower() == lower_line.split()[2] or name_search.lower() == lower_line.split()[3] or name_search.lower() == f'{lower_line.split()[2]} {lower_line.split()[3]}':
+        elif name_search.lower() == lower_line.split()[2] or name_search.lower() == lower_line.split()[3] or name_search.lower() == f'{lower_line.split()[2]} {lower_line.split()[3]}': #Checks on each iteration if any name from input matches
             results += 1
-            matching_names.append(line)
+            matching_names.append(line) #any matches getting added to list
             print(f"{results} - {line.split()[0]} {line.split()[2]} {line.split()[3]} {line.split()[4]}pax")
         else:
             continue
@@ -244,10 +242,10 @@ def search_booking():
     user_input = int(input("Please select from the matches: "))
     count = 1
     for booking in matching_names:
-        if user_input == count:
+        if user_input == count: #Iterates and selects the correct booking the user entered
             selected_booking = booking
             os.system('clear')
-            confirm_booking(booking, True)
+            confirm_booking(booking, True) #Using confirm booking function to display the full customer booking details
             break
         else:
             count += 1
@@ -269,7 +267,7 @@ def search_booking():
 
 
 
-def edit_booking(booking):
+def edit_booking(booking): #Function for editing bookings
     new_booking = booking
     count = False
     delete = False
@@ -279,39 +277,39 @@ def edit_booking(booking):
         print("3 - PAX")
         print("4 - Delete booking")
         if count == True:
-            print("5 - Finished with changes")
+            print("5 - Finished with changes") #This only shows up after editing atleast one variable in the booking
         user_input = input("What would you like to change? ")
         match user_input:
-            case "1":
+            case "1": #Using name function to edit name
                 os.system('clear')
                 new_first, new_last = booking_name()
                 a = new_booking.replace(new_booking.split()[2], new_first, 1)
                 new_booking = a.replace(new_booking.split()[3], new_last, 1)
                 count = True
-            case "2":
+            case "2": #Using time function to edit time
                 os.system('clear')
                 new_service, new_time = booking_time()
                 a = new_booking.replace(new_booking.split()[1], str(new_service), 1)
                 new_booking = a.replace(new_booking.split()[0], str(new_time), 1)
                 count = True
-            case "3":
+            case "3": #Using PAX function to edit PAX (amount of people for booking)
                 os.system('clear')
                 new_pax = pax()
                 a = new_booking.rsplit(new_booking.split()[4], 1)
                 new_booking = str(new_pax).join(a)
                 count = True
-            case "4":
+            case "4": #Delete function
                 os.system('clear')
                 check = input("Press enter to confirm you want to delete or press 0 to cancel")
                 if check == "0":
                     continue
                 else:
-                    delete = True
+                    delete = True 
                     break
             case "5":
                 if count == True:
                     os.system('clear')
-                    confirm_booking(new_booking, False)
+                    confirm_booking(new_booking, False) #Calls confirm function to see details again after making changes
                     break
                 else:
                     print("Please select a valid option")
@@ -322,17 +320,17 @@ def edit_booking(booking):
                 sleep(2)
                 os.system('clear')
 
-    with open("src/bookings_list.txt", "r") as f:
+    with open("src/bookings_list.txt", "r") as f: #Reads all lines in the text file
         lines = f.readlines()
-    with open("src/bookings_list.txt", "w") as f:
+    with open("src/bookings_list.txt", "w") as f: #Deletes and re writes all lines except for the original booking
         for line in lines:
             if line != booking and line.strip() != "":
                 f.write(line)
         if delete == False:
-            f.write("\n" + new_booking)
+            f.write("\n" + new_booking) #Adds the new(edited) booking
             print("Your booking has successfully been edited")
             sleep(3)
-        elif delete == True:
+        elif delete == True: #Will not add the booking, just leaving original deleted
             print("The booking has successfully been deleted")
             sleep(3)
     home_page()
