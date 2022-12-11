@@ -12,6 +12,7 @@
 2000 3 Tom Brady 8
 1200 2 Tom Cruise 4
 1230 2 Big Daddy 4
-1400 2 Kim Summers 5
 
 1830 3 Simple Jack 4
+1245 2 John Gacey 2
+1400 2 Kim Summers 12

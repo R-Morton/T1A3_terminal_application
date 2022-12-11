@@ -35,7 +35,7 @@ def add_booking():
     service, time = booking_time()
     pax_variable = pax()
     new_booking = f"{str(time)} {str(service)} {first} {last} {str(pax_variable)}"
-    confirm_booking(new_booking)
+    confirm_booking(new_booking, False)
     if new_booking == False:
         pass
     else:
@@ -124,10 +124,11 @@ def pax():
             sleep(2)
             os.system('clear')
         else:
+            os.system('clear')
             break
     return pax
 
-def confirm_booking(booking):
+def confirm_booking(booking, edit):
     os.system('clear')
     if booking.split()[1] == '1':
         service_name = "Breakfast"
@@ -140,6 +141,8 @@ def confirm_booking(booking):
     print(f"Service - {service_name}")
     print(f"Time - {booking.split()[0]}")
     print(f"Number of Guests - {booking.split()[4]}")
+    if edit == True:
+        return
     while True:
         add_confirmation = input("Please confirm with 'Y' to add booking or 'N' to cancel: ")
         if add_confirmation.lower() == 'y':
@@ -223,7 +226,7 @@ def search_booking():
         elif name_search == line.split()[2] or name_search == line.split()[3]:
             results += 1
             matching_names.append(line)
-            print(f"{results} - {line.split()[0]} {line.split()[2]} {line.split()[3]} {line.split()[4]}")
+            print(f"{results} - {line.split()[0]} {line.split()[2]} {line.split()[3]} {line.split()[4]}pax")
         else:
             continue
     user_input = int(input("Please select from the matches: "))
@@ -232,7 +235,7 @@ def search_booking():
         if user_input == count:
             selected_booking = booking
             os.system('clear')
-            print(f'{selected_booking.split()[0]} {selected_booking.split()[2]} {selected_booking.split()[3]} {selected_booking.split()[4]}')
+            confirm_booking(booking, True)
             break
         else:
             count += 1
@@ -286,7 +289,7 @@ def edit_booking(booking):
             case "4":
                 if count == True:
                     os.system('clear')
-                    confirm_booking(new_booking)
+                    confirm_booking(new_booking, False)
                     break
                 else:
                     print("Please select a valid option")
