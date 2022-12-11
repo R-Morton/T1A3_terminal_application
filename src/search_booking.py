@@ -2,16 +2,26 @@ from add_booking import booking_name
 from add_booking import booking_time
 from add_booking import pax
 from add_booking import confirm_booking
+from time import sleep
+import os
 def search_booking():
     bookings_file = open("src/bookings_list.txt", "r")
-    name_search = input("Please type the first or last name of the customer: ")
     matching_names = []
     results = 0
+    while True:
+        name_search = input("Please type the first or last name of the customer: ")
+        if name_search.isspace() == True or name_search == "":
+            print("Please enter a name")
+            sleep(2)
+            os.system("clear")
+        else:
+            os.system("clear")
+            break
     for line in bookings_file.readlines():
         if name_search == line.split()[2] or name_search == line.split()[3]:
             results += 1
             matching_names.append(line)
-            print(f"{line}")
+            print(f"{results} - {line.split()[0]} {line.split()[2]} {line.split()[3]} {line.split()[4]}")
         else:
             continue
     user_input = int(input("Please select from the matches: "))
@@ -19,14 +29,24 @@ def search_booking():
     for booking in matching_names:
         if user_input == count:
             selected_booking = booking
-            print(selected_booking)
+            os.system('clear')
+            print(f'{selected_booking.split()[0]} {selected_booking.split()[2]} {selected_booking.split()[3]} {selected_booking.split()[4]}')
             break
         else:
             count += 1
             continue
     edit_continue = input("Please press 1 to edit or 0 to go back: ")
-    if edit_continue == '1':
-        edit_booking(selected_booking)
+    while True:
+        if edit_continue == '1':
+            edit_booking(selected_booking)
+        elif edit_continue == '0':
+            os.system('clear')
+            search_booking()
+        else:
+            print('Please enter a valid option')
+            sleep(2)
+            os.system('clear')
+            continue
 
 
 
@@ -73,7 +93,5 @@ def edit_booking(booking):
             if line.strip('/n') != booking:
                 f.write(line)
         f.write("\n" + new_booking)
-    
+    home_page()
 
-#edit_booking()
-search_booking()
