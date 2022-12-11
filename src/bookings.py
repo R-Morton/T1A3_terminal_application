@@ -69,6 +69,7 @@ def booking_time():
         print("3 - Dinner")
         service = input("Please enter a number to select service: ")
         if service == '1':
+            os.system('clear')
             while True:
                 time = input("Please enter a time between 0700 and 1200: ")
                 if int(time.zfill(1)) < 700 or int(time) > 1200:
@@ -78,9 +79,9 @@ def booking_time():
                 else:
                     os.system('clear')
                     break
-            os.system('clear')
             break
         elif service == '2':
+            os.system('clear')
             while True:
                 time = int(input("Please enter a time between 1200 and 1530: "))
                 if time < 1200 or time > 1530:
@@ -90,9 +91,9 @@ def booking_time():
                 else:
                     os.system('clear')
                     break
-            os.system('clear')
             break
         elif service == '3':
+            os.system('clear')
             while True:
                 time = int(input("Please enter a time between 1730 and 2100: "))
                 if time < 1730 or time > 2100:
@@ -177,7 +178,7 @@ def view_bookings_menu():
                 print("Dinner bookings -")
                 view_file('3')
             case '5':
-                break
+                home_page()
             case _:
                 print("Please input a valid option")
                 sleep(1)
@@ -191,7 +192,9 @@ def view_file(service):
     reservations.sort()
     covers = 0
     for line in reservations:
-        if line.split()[1] == service or service == "all":
+        if line.strip() == "":
+            continue
+        elif line.split()[1] == service or service == "all":
             print(f"{line.split()[0]} - {line.split()[2]} {line.split()[3]} - {line.split()[4]}pax")
             covers += int(line.split()[4])
         else:
@@ -237,6 +240,7 @@ def search_booking():
     edit_continue = input("Please press 1 to edit or 0 to go back: ")
     while True:
         if edit_continue == '1':
+            os.system('clear')
             edit_booking(selected_booking)
         elif edit_continue == '0':
             os.system('clear')
@@ -262,29 +266,37 @@ def edit_booking(booking):
         user_input = input("What would you like to change? ")
         match user_input:
             case "1":
+                os.system('clear')
                 new_first, new_last = booking_name()
                 a = new_booking.replace(new_booking.split()[2], new_first, 1)
                 new_booking = a.replace(new_booking.split()[3], new_last, 1)
                 count = True
             case "2":
+                os.system('clear')
                 new_service, new_time = booking_time()
                 a = new_booking.replace(new_booking.split()[1], str(new_service), 1)
                 new_booking = a.replace(new_booking.split()[0], str(new_time), 1)
                 count = True
             case "3":
-                print("PAX")
+                os.system('clear')
                 new_pax = pax()
                 a = new_booking.rsplit(new_booking.split()[4], 1)
                 new_booking = str(new_pax).join(a)
                 count = True
             case "4":
                 if count == True:
+                    os.system('clear')
                     confirm_booking(new_booking)
                     break
                 else:
-                    print("Invalid")
+                    print("Please select a valid option")
+                    sleep(2)
+                    os.system('clear')
             case _:
-                print("Invalid")
+                print("Please select a valid option")
+                sleep(2)
+                os.system('clear')
+
     with open("src/bookings_list.txt", "r") as f:
         lines = f.readlines()
     with open("src/bookings_list.txt", "w") as f:
