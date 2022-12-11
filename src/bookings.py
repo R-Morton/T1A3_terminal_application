@@ -49,6 +49,11 @@ def booking_name():
         f_name = input("Please enter first name: ")
         if f_name.isspace() == True or f_name == "":
             print("This cannot be left blank")
+            sleep(2)
+            os.system('clear')
+        elif len(f_name.split()) > 1:
+            print("Please only enter one name")
+            sleep(2)
             os.system('clear')
         else:
             break
@@ -56,6 +61,11 @@ def booking_name():
         l_name = input("Please enter last name: ")
         if l_name.isspace() == True or l_name == "":
             print("This cannot be left blank")
+            sleep(2)
+            os.system('clear')
+        elif len(l_name.split()) > 1:
+            print("Please only enter one name")
+            sleep(2)
             os.system('clear')
         else:
             break
@@ -221,9 +231,10 @@ def search_booking():
             os.system("clear")
             break
     for line in bookings_file.readlines():
+        lower_line = line.lower()
         if line.strip() == "":
             continue
-        elif name_search == line.split()[2] or name_search == line.split()[3]:
+        elif name_search.lower() == lower_line.split()[2] or name_search.lower() == lower_line.split()[3]:
             results += 1
             matching_names.append(line)
             print(f"{results} - {line.split()[0]} {line.split()[2]} {line.split()[3]} {line.split()[4]}pax")
@@ -247,7 +258,7 @@ def search_booking():
             edit_booking(selected_booking)
         elif edit_continue == '0':
             os.system('clear')
-            search_booking()
+            home_page()
         else:
             print('Please enter a valid option')
             sleep(2)
