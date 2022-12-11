@@ -78,52 +78,32 @@ def booking_time():
         print("2 - Lunch")
         print("3 - Dinner")
         service = input("Please enter a number to select service: ")
-        if service == '1':
-            os.system('clear')
-            while True:
-                time = input("Please enter a time between 0700 and 1200: ")
-                if time_checker(time) == False:
-                    continue
-                elif int(time.zfill(1)) < 700 or int(time) > 1200:
-                    print("Please enter a valid time")
-                    sleep(2)
-                    os.system('clear')
-                else:
-                    os.system('clear')
-                    break
-            break
-        elif service == '2':
-            os.system('clear')
-            while True:
-                time = int(input("Please enter a time between 1200 and 1530: "))
+        match service:
+            case '1':
+                service_range = (800, 1200)
+            case '2':
+                service_range = (1200, 1530)
+            case '3':
+                service_range = (1730, 2100)
+            case _:
+                print("Please enter a valid option")
                 sleep(2)
-                if time < 1200 or time > 1530:
-                    print("Please enter a valid time")
-                    sleep(2)
-                    os.system('clear')
-                else:
-                    os.system('clear')
-                    break
-            break
-        elif service == '3':
-            os.system('clear')
-            while True:
-                time = int(input("Please enter a time between 1730 and 2100: "))
-                if time < 1730 or time > 2100:
-                    print("Please enter a valid time")
-                    sleep(2)
-                    os.system('clear')
-                else:
-                    os.system('clear')
-                    break
-            os.system('clear')
-            break
-        else:
-            print("Please select a valid option")
-            sleep(2)
-            os.system('clear')
-            continue
-    return service, time
+                os.system('clear')
+                continue
+        os.system('clear')
+        while True:
+            time = input(f"Please enter a time between {service_range[0]} and {service_range[1]}: ")
+            if time_checker(time) == False:
+                continue
+            if int(time) < service_range[0] or int(time) > service_range[1]:
+                print("Please enter a valid time")
+                sleep(2)
+                os.system('clear')
+            elif len(time) <= 999:
+                time = time.zfill(1)
+                return service, time
+            else:
+                return service, time
 
 def time_checker(time):
     count = 1
