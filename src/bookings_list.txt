@@ -1,13 +1,15 @@
 1830 3 Ralph Winters 7
-1400 2 Kim Summers 3
 1230 2 Jerry Springer 5
 1930 3 Ben Johnson 2
 0830 1 Liam Lover 2
-2000 3 Tom Brady 4
 0800 1 Garry Dickson 6
 1800 3 Reece Norton 3
 2030 3 Pablo Deskobar 15
-1200 2 Tom Cruise 4
 1030 1 Stalin Hifler 7
-
 1800 3 Rhys Morton 4
+1800 3 Willy Wonka 4
+1230 2 Test testy 6
+2000 3 Tom Brady 8
+1200 2 Tom Cruise 4
+1230 2 Big Daddy 4
+1400 2 Kim Summers 5

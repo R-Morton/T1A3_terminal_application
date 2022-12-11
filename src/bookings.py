@@ -1,6 +1,6 @@
 # Create home page where user selects options to choose from
 import os
-import time
+from time import sleep
 def home_page():
     while True:
         os.system('clear')
@@ -21,16 +21,16 @@ def home_page():
                 search_booking()
             case "4":
                 print("Goodbye!")
-                time.sleep(2)
+                sleep(2)
                 break
             case _:
                 print("Please input a valid option")
-                time.sleep(1)
+                sleep(1)
                 os.system('clear')
                 continue
 
-bookings_file = open("src/bookings_list.txt", "a+")
 def add_booking():
+    bookings_file = open("src/bookings_list.txt", "a+")
     first, last = booking_name()
     service, time = booking_time()
     pax_variable = pax()
@@ -41,6 +41,8 @@ def add_booking():
     else:
         bookings_file.write("\n" + new_booking)
         bookings_file.flush()
+        print("Booking has sucessfully been added")
+        sleep(3)
 
 def booking_name():
     while True:
@@ -71,7 +73,7 @@ def booking_time():
                 time = input("Please enter a time between 0700 and 1200: ")
                 if int(time.zfill(1)) < 700 or int(time) > 1200:
                     print("Please enter a valid time")
-                    time.sleep(2)
+                    sleep(2)
                     os.system('clear')
                 else:
                     os.system('clear')
@@ -83,7 +85,7 @@ def booking_time():
                 time = int(input("Please enter a time between 1200 and 1530: "))
                 if time < 1200 or time > 1530:
                     print("Please enter a valid time")
-                    time.sleep(2)
+                    sleep(2)
                     os.system('clear')
                 else:
                     os.system('clear')
@@ -95,7 +97,7 @@ def booking_time():
                 time = int(input("Please enter a time between 1730 and 2100: "))
                 if time < 1730 or time > 2100:
                     print("Please enter a valid time")
-                    time.sleep(2)
+                    sleep(2)
                     os.system('clear')
                 else:
                     os.system('clear')
@@ -104,7 +106,7 @@ def booking_time():
             break
         else:
             print("Please select a valid option")
-            time.sleep(2)
+            sleep(2)
             os.system('clear')
             continue
     return service, time
@@ -114,11 +116,11 @@ def pax():
         pax = int(input("How many guests are attending?: "))
         if pax <= 0:
             print("Please enter atleast one or more guests")
-            time.sleep(2)
+            sleep(2)
             os.system('clear')
         elif pax >20:
             print("Bookings above 20 must be refered to the functions team")
-            time.sleep(2)
+            sleep(2)
             os.system('clear')
         else:
             break
@@ -140,12 +142,10 @@ def confirm_booking(booking):
     while True:
         add_confirmation = input("Please confirm with 'Y' to add booking or 'N' to cancel: ")
         if add_confirmation.lower() == 'y':
-            print("Booking has sucessfully been added")
-            time.sleep(2)
             return booking
         elif add_confirmation.lower() == 'n':
             print("Booking process has been cancelled")
-            time.sleep(2)
+            sleep(2)
             return False
         else:
             print("Please input a valid response")
@@ -180,7 +180,7 @@ def view_bookings_menu():
                 break
             case _:
                 print("Please input a valid option")
-                time.sleep(1)
+                sleep(1)
                 os.system('clear')
                 continue
 
@@ -209,13 +209,15 @@ def search_booking():
         name_search = input("Please type the first or last name of the customer: ")
         if name_search.isspace() == True or name_search == "":
             print("Please enter a name")
-            time.sleep(2)
+            sleep(2)
             os.system("clear")
         else:
             os.system("clear")
             break
     for line in bookings_file.readlines():
-        if name_search == line.split()[2] or name_search == line.split()[3]:
+        if line.strip() == "":
+            continue
+        elif name_search == line.split()[2] or name_search == line.split()[3]:
             results += 1
             matching_names.append(line)
             print(f"{results} - {line.split()[0]} {line.split()[2]} {line.split()[3]} {line.split()[4]}")
@@ -241,7 +243,7 @@ def search_booking():
             search_booking()
         else:
             print('Please enter a valid option')
-            time.sleep(2)
+            sleep(2)
             os.system('clear')
             continue
 
@@ -287,9 +289,11 @@ def edit_booking(booking):
         lines = f.readlines()
     with open("src/bookings_list.txt", "w") as f:
         for line in lines:
-            if line.strip('/n') != booking:
+            if line != booking:
                 f.write(line)
         f.write("\n" + new_booking)
+        print("Your booking has successfully been edited")
+        sleep(3)
     home_page()
 
 home_page()
