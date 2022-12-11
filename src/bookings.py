@@ -82,7 +82,9 @@ def booking_time():
             os.system('clear')
             while True:
                 time = input("Please enter a time between 0700 and 1200: ")
-                if int(time.zfill(1)) < 700 or int(time) > 1200:
+                if time_checker(time) == False:
+                    continue
+                elif int(time.zfill(1)) < 700 or int(time) > 1200:
                     print("Please enter a valid time")
                     sleep(2)
                     os.system('clear')
@@ -94,6 +96,7 @@ def booking_time():
             os.system('clear')
             while True:
                 time = int(input("Please enter a time between 1200 and 1530: "))
+                sleep(2)
                 if time < 1200 or time > 1530:
                     print("Please enter a valid time")
                     sleep(2)
@@ -121,6 +124,19 @@ def booking_time():
             os.system('clear')
             continue
     return service, time
+
+def time_checker(time):
+    count = 1
+    for x in str(time):
+        if count == 3:
+            if int(x) > 5:
+                print("Please enter a valid time")
+                sleep(2)
+                os.system('clear')
+                return False
+            else:
+                return True
+        count += 1
 
 def pax():
     while True:
