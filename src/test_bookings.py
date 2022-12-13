@@ -1,11 +1,11 @@
-from bookings import add_booking
-from bookings import edit_booking
+import add_bookings
+import search_edit
 
 
 def test_add_booking(monkeypatch): #This test adds a booking and checks bookings.txt to ensure it is there
     inputs = iter(["testy", "test", "1", "0930", "3", "y"])
     monkeypatch.setattr('builtins.input', lambda _: next(inputs))
-    add_booking()
+    add_bookings.add_booking()
     bookings_file = open("src/bookings_list.txt", "r")
     target = "0930 1 testy test 3"
     result = ""
@@ -18,7 +18,7 @@ def test_edit_booking(monkeypatch):
     original = "0930 1 testy test 3"
     inputs = iter(["1", "editing", "test", "2", "2", "1230", "3", "8", "5", "y", "4"])
     monkeypatch.setattr('builtins.input', lambda _: next(inputs))
-    edit_booking(original)
+    search_edit.edit_booking(original)
     bookings_file = open("src/bookings_list.txt", "r")
     target = "1230 2 editing test 8"
     result = ""

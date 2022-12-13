@@ -10,5 +10,7 @@
 1230 2 Big Daddy 4
 1830 3 Simple Jack 4
 1245 2 John Gacey 2
-1200 2 Tom Cruise 4
 0830 1 Liam Lover 6
+1230 2 Big Daddy 2
+1200 2 Tom Cruise 3
+0930 1 testy test 3
