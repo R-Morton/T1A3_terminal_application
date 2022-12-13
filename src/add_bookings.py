@@ -18,30 +18,27 @@ def add_booking(): #Declares multiple variables from return values of functions
 def booking_name(): #Returns first and last name
     while True:
         f_name = input("Please enter first name: ")
-        if f_name.isspace() == True or f_name == "":
-            print("This cannot be left blank")
-            sleep(2)
-            os.system('clear')
-        elif len(f_name.split()) > 1:
-            print("Please only enter one name")
-            sleep(2)
-            os.system('clear')
-        else:
+        if name_checker(f_name) == True:
             break
     while True:
         l_name = input("Please enter last name: ")
-        if l_name.isspace() == True or l_name == "":
-            print("This cannot be left blank")
-            sleep(2)
-            os.system('clear')
-        elif len(l_name.split()) > 1:
-            print("Please only enter one name")
-            sleep(2)
-            os.system('clear')
-        else:
+        if name_checker(l_name) == True:
             break
-    os.system('clear')
     return f_name, l_name
+
+def name_checker(name):
+        if name.isspace() == True or name == "":
+                print("This cannot be left blank")
+                sleep(2)
+                os.system('clear')
+                return False
+        elif len(name.split()) > 1:
+                print("Please only enter one name")
+                sleep(2)
+                os.system('clear')
+                return False
+        else:
+            return True
 
 def booking_time(): #Returns service and time
     while True:
