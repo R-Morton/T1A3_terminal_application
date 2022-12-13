@@ -7,9 +7,8 @@ def add_booking(): #Declares multiple variables from return values of functions
     service, time = booking_time()
     pax_variable = pax()
     new_booking = f"{str(time)} {str(service)} {first} {last} {str(pax_variable)}"
-    confirm_booking(new_booking, False)
-    if new_booking == False:
-        pass
+    if confirm_booking(new_booking, False) == False:
+        return
     else: #Writes new booking in once all functions passed
         bookings_file.write("\n" + new_booking)
         bookings_file.flush()
@@ -67,7 +66,7 @@ def booking_time(): #Returns service and time
             time = input(f"Please enter a time between {service_range[0]} and {service_range[1]}: ")
             if time_checker(time) == False:
                 continue
-            if int(time) < service_range[0] or int(time) > service_range[1]:
+            if time == "" or int(time) < service_range[0] or int(time) > service_range[1]:
                 print("Please enter a valid time")
                 sleep(2)
                 os.system('clear')
@@ -92,12 +91,12 @@ def time_checker(time): #Function that checks time input isnt above 60 minutes f
 
 def pax(): #PAX is the term used to say how many people are dining in the booking
     while True:
-        pax = int(input("How many guests are attending?: "))
-        if pax <= 0:
+        pax = input("How many guests are attending?: ")
+        if pax == "" or int(pax) <= 0:
             print("Please enter atleast one or more guests")
             sleep(2)
             os.system('clear')
-        elif pax >20:
+        elif int(pax) >20:
             print("Bookings above 20 must be refered to the functions team")
             sleep(2)
             os.system('clear')

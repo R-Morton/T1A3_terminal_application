@@ -1,6 +1,7 @@
 import add_bookings
 import search_edit
 
+#python -m pytest -s
 
 def test_add_booking(monkeypatch): #This test adds a booking and checks bookings.txt to ensure it is there
     inputs = iter(["testy", "test", "1", "0930", "3", "y"])
@@ -14,7 +15,7 @@ def test_add_booking(monkeypatch): #This test adds a booking and checks bookings
             result = line
     assert target in result
 
-def test_edit_booking(monkeypatch):
+def test_edit_booking(monkeypatch): #This test edits the test booking and checks bookings.txt if its there
     original = "0930 1 testy test 3"
     inputs = iter(["1", "editing", "test", "2", "2", "1230", "3", "8", "6", "y"])
     monkeypatch.setattr('builtins.input', lambda _: next(inputs))
@@ -28,8 +29,8 @@ def test_edit_booking(monkeypatch):
     assert target == result
     delete_test(target)
 
-def delete_test(target):
-    with open("src/bookings_list.txt", "r") as f: #This will delete the test booking after checking it is there
+def delete_test(target): #This will delete the test booking after checking it is there
+    with open("src/bookings_list.txt", "r") as f: 
         lines = f.readlines()
     with open("src/bookings_list.txt", "w") as f:
         for line in lines:
