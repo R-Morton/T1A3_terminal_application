@@ -336,3 +336,4 @@ def edit_booking(booking): #Function for editing bookings
     home_page()
 
 home_page()
+#edit_booking("0930 1 testy test 3")
