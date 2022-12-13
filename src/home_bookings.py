@@ -24,7 +24,7 @@ while True:
         case "4":
             print("Goodbye!")
             sleep(2)
-            break
+            exit()
         case _:
             print("Please input a valid option")
             sleep(1)

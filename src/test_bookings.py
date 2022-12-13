@@ -16,7 +16,7 @@ def test_add_booking(monkeypatch): #This test adds a booking and checks bookings
 
 def test_edit_booking(monkeypatch):
     original = "0930 1 testy test 3"
-    inputs = iter(["1", "editing", "test", "2", "2", "1230", "3", "8", "5", "y", "4"])
+    inputs = iter(["1", "editing", "test", "2", "2", "1230", "3", "8", "6", "y"])
     monkeypatch.setattr('builtins.input', lambda _: next(inputs))
     search_edit.edit_booking(original)
     bookings_file = open("src/bookings_list.txt", "r")

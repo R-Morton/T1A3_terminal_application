@@ -65,8 +65,9 @@ def edit_booking(booking): #Function for editing bookings
         print("2 - Time")
         print("3 - PAX")
         print("4 - Delete booking")
+        print("5 - Cancel")
         if count == True:
-            print("5 - Finished with changes") #This only shows up after editing atleast one variable in the booking
+            print("6 - Finished with changes") #This only shows up after editing atleast one variable in the booking
         user_input = input("What would you like to change? ")
         match user_input:
             case "1": #Using name function to edit name
@@ -96,6 +97,11 @@ def edit_booking(booking): #Function for editing bookings
                     delete = True 
                     break
             case "5":
+                os.system('clear')
+                print("Changes have been cancelled")
+                sleep(2)
+                break
+            case "6":
                 if count == True:
                     os.system('clear')
                     add_bookings.confirm_booking(new_booking, False) #Calls confirm function to see details again after making changes
@@ -108,17 +114,17 @@ def edit_booking(booking): #Function for editing bookings
                 print("Please select a valid option")
                 sleep(2)
                 os.system('clear')
-
-    with open("src/bookings_list.txt", "r") as f: #Reads all lines in the text file
-        lines = f.readlines()
-    with open("src/bookings_list.txt", "w") as f: #Deletes and re writes all lines except for the original booking
-        for line in lines:
-            if line != booking and line.strip() != "":
-                f.write(line)
-        if delete == False:
-            f.write("\n" + new_booking) #Adds the new(edited) booking
-            print("Your booking has successfully been edited")
-            sleep(3)
-        elif delete == True: #Will not add the booking, just leaving original deleted
-            print("The booking has successfully been deleted")
-            sleep(3)
+    if int(user_input) != 5:
+        with open("src/bookings_list.txt", "r") as f: #Reads all lines in the text file
+            lines = f.readlines()
+        with open("src/bookings_list.txt", "w") as f: #Deletes and re writes all lines except for the original booking
+            for line in lines:
+                if line != booking and line.strip() != "":
+                    f.write(line)
+            if delete == False:
+                f.write("\n" + new_booking) #Adds the new(edited) booking
+                print("Your booking has successfully been edited")
+                sleep(3)
+            elif delete == True: #Will not add the booking, just leaving original deleted
+                print("The booking has successfully been deleted")
+                sleep(3)
