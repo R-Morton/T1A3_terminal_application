@@ -24,7 +24,6 @@ def bookings_phone():
     while not_random == True: # This is for manually entering phone number
         phone = input("Please enter a phone number: ")
         phone = phone.zfill(1)
-        count = 1
         if len(phone) != 10: # Checks the number is 10 digits long
             print("Please enter a valid number")
             sleep(2)
