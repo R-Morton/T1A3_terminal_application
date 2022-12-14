@@ -26,7 +26,7 @@ def booking_name(): #Returns first and last name
             break
     return f_name, l_name
 
-def name_checker(name):
+def name_checker(name): #Checks name for errors
         if name.isspace() == True or name == "":
                 print("This cannot be left blank")
                 sleep(2)
