@@ -1,12 +1,14 @@
 import os
 from time import sleep
+import phone
 
 def add_booking(): #Declares multiple variables from return values of functions
     bookings_file = open("src/bookings_list.txt", "a+")
     first, last = booking_name()
+    phone_num = phone.bookings_phone()
     service, time = booking_time()
     pax_variable = pax()
-    new_booking = f"{str(time)} {str(service)} {first} {last} {str(pax_variable)}"
+    new_booking = f"{str(time)} {str(service)} {first} {last} {str(phone_num)} {str(pax_variable)}"
     if confirm_booking(new_booking, False) == False:
         return
     else: #Writes new booking in once all functions passed
@@ -112,9 +114,10 @@ def confirm_booking(booking, edit): #Function to layout all the information for 
         service_name = "Dinner"
     print("Booking details:")
     print(f"Name - {booking.split()[2]} {booking.split()[3]}")
+    print(f"Phone Number - {booking.split()[4]}")
     print(f"Service - {service_name}")
     print(f"Time - {booking.split()[0]}")
-    print(f"Number of Guests - {booking.split()[4]}")
+    print(f"Number of Guests - {booking.split()[5]}")
     if edit == True: #If true, this will skip the rest and we are editing not creating. 
         return
     while True:

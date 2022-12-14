@@ -3,10 +3,11 @@ from time import sleep
 import random
 
 def bookings_phone():
+    os.system('clear')
     print("1 - Enter phone number")
     print("2 - Randomly generate number")
     while True:
-        user_input = input("Please select an option")
+        user_input = input("Please select an option: ")
         match user_input:
             case '1':
                 os.system('clear')
@@ -56,5 +57,3 @@ def random_number():
             count +=1
     number = ''.join(number)
     return number
-
-print(bookings_phone())

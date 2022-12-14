@@ -44,7 +44,7 @@ def view_file(service): #Using the service parameter/argument, prints the releva
         if line.strip() == "":
             continue
         elif line.split()[1] == service or service == "all": #Compares the service number saved in text file, to service parameter
-            print(f"{line.split()[0]} - {line.split()[2]} {line.split()[3]} - {line.split()[4]}pax")
+            print(f"{line.split()[0]} - {line.split()[2]} {line.split()[3]} - {line.split()[5]}pax")
             covers += int(line.split()[4]) #Adding up total covers (amount of guests in booking or PAX) to display total 
         else:
             continue

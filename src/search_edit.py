@@ -1,4 +1,5 @@
 import add_bookings
+import phone
 from time import sleep
 import os
 
@@ -22,7 +23,7 @@ def search_booking(): #Function for searching for a customer before editing
         elif name_search.lower() == lower_line.split()[2] or name_search.lower() == lower_line.split()[3] or name_search.lower() == f'{lower_line.split()[2]} {lower_line.split()[3]}': #Checks on each iteration if any name from input matches
             results += 1
             matching_names.append(line) #any matches getting added to list
-            print(f"{results} - {line.split()[0]} {line.split()[2]} {line.split()[3]} {line.split()[4]}pax")
+            print(f"{results} - {line.split()[0]} {line.split()[2]} {line.split()[3]} {line.split()[5]}pax")
         else:
             continue
     if not matching_names:
@@ -62,12 +63,13 @@ def edit_booking(booking): #Function for editing bookings
     delete = False
     while True:
         print("1 - Name")
-        print("2 - Time")
-        print("3 - PAX")
-        print("4 - Delete booking")
-        print("5 - Cancel")
+        print("2 - Phone number")
+        print("3 - Time")
+        print("4 - PAX")
+        print("5 - Delete booking")
+        print("6 - Cancel")
         if count == True:
-            print("6 - Finished with changes") #This only shows up after editing atleast one variable in the booking
+            print("7 - Finished with changes") #This only shows up after editing atleast one variable in the booking
         user_input = input("What would you like to change? ")
         match user_input:
             case "1": #Using name function to edit name
@@ -76,36 +78,44 @@ def edit_booking(booking): #Function for editing bookings
                 a = new_booking.replace(new_booking.split()[2], new_first, 1)
                 new_booking = a.replace(new_booking.split()[3], new_last, 1)
                 count = True
-            case "2": #Using time function to edit time
+            case "2": #Using phone function to edit phone number
+                os.system('clear')
+                new_number = phone.bookings_phone()
+                new_booking = new_booking.replace(new_booking.split()[4], new_number, 1)
+                count = True
+            case "3": #Using time function to edit time
                 os.system('clear')
                 new_service, new_time = add_bookings.booking_time()
                 a = new_booking.replace(new_booking.split()[1], str(new_service), 1)
                 new_booking = a.replace(new_booking.split()[0], str(new_time), 1)
                 count = True
-            case "3": #Using PAX function to edit PAX (amount of people for booking)
+            case "4": #Using PAX function to edit PAX (amount of people for booking)
                 os.system('clear')
                 new_pax = add_bookings.pax()
-                a = new_booking.rsplit(new_booking.split()[4], 1)
+                a = new_booking.rsplit(new_booking.split()[5], 1)
                 new_booking = str(new_pax).join(a)
                 count = True
-            case "4": #Delete function
+            case "5": #Delete function
                 os.system('clear')
                 check = input("Press enter to confirm you want to delete or press 0 to cancel")
                 if check == "0":
                     continue
                 else:
-                    delete = True 
-                    break
-            case "5":
+                    write_changes(new_booking, True)
+            case "6":
                 os.system('clear')
                 print("Changes have been cancelled")
                 sleep(2)
                 break
-            case "6":
+            case "7":
                 if count == True:
                     os.system('clear')
-                    add_bookings.confirm_booking(new_booking, False) #Calls confirm function to see details again after making changes
-                    break
+                    if add_bookings.confirm_booking(new_booking, False) != False:
+                         #Calls confirm function to see details again after making changes
+                        write_changes(new_booking, False)
+                        break
+                    else:
+                        break
                 else:
                     print("Please select a valid option")
                     sleep(2)
@@ -114,7 +124,8 @@ def edit_booking(booking): #Function for editing bookings
                 print("Please select a valid option")
                 sleep(2)
                 os.system('clear')
-    if int(user_input) != 5:
+
+def write_changes(booking, delete):
         with open("src/bookings_list.txt", "r") as f: #Reads all lines in the text file
             lines = f.readlines()
         with open("src/bookings_list.txt", "w") as f: #Deletes and re writes all lines except for the original booking
@@ -122,7 +133,7 @@ def edit_booking(booking): #Function for editing bookings
                 if line != booking and line.strip() != "":
                     f.write(line)
             if delete == False:
-                f.write("\n" + new_booking) #Adds the new(edited) booking
+                f.write("\n" + booking) #Adds the new(edited) booking
                 print("Your booking has successfully been edited")
                 sleep(3)
             elif delete == True: #Will not add the booking, just leaving original deleted
