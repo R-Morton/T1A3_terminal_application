@@ -16,3 +16,4 @@ The user will be able to select an option that will display all the bookings for
 ### Edit/Delete bookings
 
 The user will be able to select specific bookings and make edits or delete it completely.
+

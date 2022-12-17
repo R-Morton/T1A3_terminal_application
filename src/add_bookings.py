@@ -12,10 +12,10 @@ def add_booking(): #Declares multiple variables from return values of functions
     if confirm_booking(new_booking, False) == False:
         return
     else: #Writes new booking in once all functions passed
+        print("Booking has sucessfully been added")
         bookings_file.write("\n" + new_booking)
         bookings_file.flush()
-        print("Booking has sucessfully been added")
-        sleep(3)
+        sleep(2)
 
 def booking_name(): #Returns first and last name
     while True:
@@ -121,7 +121,7 @@ def confirm_booking(booking, edit): #Function to layout all the information for 
     if edit == True: #If true, this will skip the rest and we are editing not creating. 
         return
     while True:
-        add_confirmation = input("Please confirm with 'Y' to add booking or 'N' to cancel: ")
+        add_confirmation = input("Please confirm with 'Y' or 'N' to cancel: ")
         if add_confirmation.lower() == 'y':
             return booking
         elif add_confirmation.lower() == 'n':

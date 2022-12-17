@@ -102,7 +102,7 @@ def edit_booking(booking): #Function for editing bookings
                 if check == "0":
                     continue
                 else:
-                    write_changes(new_booking, True)
+                    write_changes(booking, new_booking, True)
             case "6":
                 os.system('clear')
                 print("Changes have been cancelled")
@@ -113,7 +113,7 @@ def edit_booking(booking): #Function for editing bookings
                     os.system('clear')
                     if add_bookings.confirm_booking(new_booking, False) != False:
                          #Calls confirm function to see details again after making changes
-                        write_changes(new_booking, False)
+                        write_changes(booking, new_booking, False)
                         break
                     else:
                         break
@@ -126,15 +126,15 @@ def edit_booking(booking): #Function for editing bookings
                 sleep(2)
                 os.system('clear')
 
-def write_changes(booking, delete):
+def write_changes(old_booking, new_booking, delete):
         with open("src/bookings_list.txt", "r") as f: #Reads all lines in the text file
             lines = f.readlines()
         with open("src/bookings_list.txt", "w") as f: #Deletes and re writes all lines except for the original booking
             for line in lines:
-                if line != booking and line.strip() != "":
+                if line != old_booking and line.strip() != "":
                     f.write(line)
             if delete == False:
-                f.write("\n" + booking) #Adds the new(edited) booking
+                f.write("\n" + new_booking) #Adds the new(edited) booking
                 print("Your booking has successfully been edited")
                 sleep(3)
             elif delete == True: #Will not add the booking, just leaving original deleted
