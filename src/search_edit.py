@@ -2,6 +2,7 @@ import add_bookings
 import phone
 from time import sleep
 import os
+import re
 
 def search_booking(): #Function for searching for a customer before editing
     bookings_file = open("src/bookings_list.txt", "r")
@@ -20,7 +21,7 @@ def search_booking(): #Function for searching for a customer before editing
         lower_line = line.lower()
         if line.strip() == "":
             continue
-        elif name_search.lower() == lower_line.split()[2] or name_search.lower() == lower_line.split()[3] or name_search.lower() == f'{lower_line.split()[2]} {lower_line.split()[3]}': #Checks on each iteration if any name from input matches
+        elif name_search.lower() in re.findall(name_search.lower(), lower_line): #Checks on each iteration if any name from input matches
             results += 1
             matching_names.append(line) #any matches getting added to list
             print(f"{results} - {line.split()[0]} {line.split()[2]} {line.split()[3]} {line.split()[5]}pax")
