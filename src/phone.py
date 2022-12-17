@@ -3,10 +3,9 @@ from time import sleep
 import random
 
 def bookings_phone():
-    os.system('clear')
-    print("1 - Enter phone number")
-    print("2 - Randomly generate number")
     while True:
+        print("1 - Enter phone number")
+        print("2 - Randomly generate number")
         user_input = input("Please select an option: ")
         match user_input:
             case '1':
@@ -18,14 +17,14 @@ def bookings_phone():
                 not_random = False
                 return random_number()
             case _:
-                print("Please select a valid option")
+                print("Please select a valid option" , flush=True)
                 sleep(1)
                 os.system('clear')
     while not_random == True: # This is for manually entering phone number
         phone = input("Please enter a phone number: ")
         phone = phone.zfill(1)
         if len(phone) != 10: # Checks the number is 10 digits long
-            print("Please enter a valid number")
+            print("Please enter a valid number", flush=True)
             sleep(2)
             os.system('clear')
             continue
@@ -33,7 +32,7 @@ def bookings_phone():
             os.system('clear')
             return phone
         else:
-            print("Please enter a valid number")
+            print("Please enter a valid number", flush=True)
             sleep(2)
             os.system('clear')
             continue

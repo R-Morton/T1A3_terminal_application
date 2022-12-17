@@ -12,7 +12,7 @@ def add_booking(): #Declares multiple variables from return values of functions
     if confirm_booking(new_booking, False) == False:
         return
     else: #Writes new booking in once all functions passed
-        print("Booking has sucessfully been added")
+        print("Booking has sucessfully been added", flush=True)
         bookings_file.write("\n" + new_booking)
         bookings_file.flush()
         sleep(2)
@@ -26,16 +26,17 @@ def booking_name(): #Returns first and last name
         l_name = input("Please enter last name: ")
         if name_checker(l_name) == True:
             break
+    os.system('clear')
     return f_name, l_name
 
 def name_checker(name): #Checks name for errors
         if name.isspace() == True or name == "":
-                print("This cannot be left blank")
+                print("This cannot be left blank", flush=True)
                 sleep(2)
                 os.system('clear')
                 return False
         elif len(name.split()) > 1:
-                print("Please only enter one name")
+                print("Please only enter one name", flush=True)
                 sleep(2)
                 os.system('clear')
                 return False
@@ -56,7 +57,7 @@ def booking_time(): #Returns service and time
             case '3':
                 service_range = (1730, 2100)
             case _:
-                print("Please enter a valid option")
+                print("Please enter a valid option", flush=True)
                 sleep(2)
                 os.system('clear')
                 continue
@@ -66,7 +67,7 @@ def booking_time(): #Returns service and time
             if time_checker(time) == False:
                 continue
             if time == "" or int(time) < service_range[0] or int(time) > service_range[1]:
-                print("Please enter a valid time")
+                print("Please enter a valid time", flush=True)
                 sleep(2)
                 os.system('clear')
             elif len(time) <= 999:
@@ -80,7 +81,7 @@ def time_checker(time): #Function that checks time input isnt above 60 minutes f
     for x in str(time):
         if count == 3:
             if int(x) > 5:
-                print("Please enter a valid time")
+                print("Please enter a valid time", flush=True)
                 sleep(2)
                 os.system('clear')
                 return False
@@ -92,11 +93,11 @@ def pax(): #PAX is the term used to say how many people are dining in the bookin
     while True:
         pax = input("How many guests are attending?: ")
         if pax == "" or int(pax) <= 0:
-            print("Please enter atleast one or more guests")
+            print("Please enter atleast one or more guests", flush=True)
             sleep(2)
             os.system('clear')
         elif int(pax) >20:
-            print("Bookings above 20 must be refered to the functions team")
+            print("Bookings above 20 must be refered to the functions team", flush=True)
             sleep(2)
             os.system('clear')
         else:
@@ -125,9 +126,10 @@ def confirm_booking(booking, edit): #Function to layout all the information for 
         if add_confirmation.lower() == 'y':
             return booking
         elif add_confirmation.lower() == 'n':
-            print("Booking process has been cancelled")
+            print("Booking process has been cancelled", flush=True)
             sleep(2)
             return False
         else:
-            print("Please input a valid response")
+            print("Please input a valid response", flush=True)
+            sleep(2)
             continue

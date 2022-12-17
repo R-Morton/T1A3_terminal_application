@@ -22,11 +22,11 @@ while True:
             os.system('clear')
             search_edit.search_booking()
         case "4":
-            print("Goodbye!")
+            print("Goodbye!", flush=True)
             sleep(2)
             exit()
         case _:
-            print("Please input a valid option")
+            print("Please input a valid option", flush=True)
             sleep(1)
             os.system('clear')
             continue

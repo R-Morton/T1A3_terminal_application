@@ -1,5 +1,9 @@
 # T1A3 Terminal App
 
+Github - https://github.com/R-Morton/T1A3_terminal_application
+
+Presentation - 
+
 ## Restaraunt booking system
 
 The aim of this app is to allow the user from a restaraunt staff member point of view to be able to managage their bookings of the venue for the day.

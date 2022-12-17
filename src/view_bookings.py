@@ -29,7 +29,7 @@ def view_bookings_menu(): #A menu to choose what service to view bookings for, p
             case '5':
                 break
             case _:
-                print("Please input a valid option")
+                print("Please input a valid option", flush=True)
                 sleep(1)
                 os.system('clear')
                 continue

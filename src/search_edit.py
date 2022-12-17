@@ -11,7 +11,7 @@ def search_booking(): #Function for searching for a customer before editing
     while True:
         name_search = input("Please enter the name of a customer: ")
         if name_search.isspace() == True or name_search == "": #stops user from entering no name
-            print("Please enter a name")
+            print("Please enter a name", flush=True)
             sleep(2)
             os.system("clear")
         else:
@@ -28,34 +28,34 @@ def search_booking(): #Function for searching for a customer before editing
         else:
             continue
     if not matching_names:
-        print("No matches found")
+        print("No matches found", flush=True)
         sleep(2)
-        search_booking()
-    user_input = int(input("Please select from the matches: "))
-    count = 1
-    for booking in matching_names:
-        if user_input == count: #Iterates and selects the correct booking the user entered
-            selected_booking = booking
-            os.system('clear')
-            add_bookings.confirm_booking(booking, True) #Using confirm booking function to display the full customer booking details
-            break
-        else:
-            count += 1
-            continue
-    edit_continue = input("Please press 1 to edit or 0 to go back: ")
-    while True:
-        if edit_continue == '1':
-            os.system('clear')
-            edit_booking(selected_booking)
-            break
-        elif edit_continue == '0':
-            os.system('clear')
-            break
-        else:
-            print('Please enter a valid option')
-            sleep(2)
-            os.system('clear')
-            continue
+    else:
+        user_input = int(input("Please select from the matches: "))
+        count = 1
+        for booking in matching_names:
+            if user_input == count: #Iterates and selects the correct booking the user entered
+                selected_booking = booking
+                os.system('clear')
+                add_bookings.confirm_booking(booking, True) #Using confirm booking function to display the full customer booking details
+                break
+            else:
+                count += 1
+                continue
+        edit_continue = input("Please press 1 to edit or 0 to go back: ")
+        while True:
+            if edit_continue == '1':
+                os.system('clear')
+                edit_booking(selected_booking)
+                break
+            elif edit_continue == '0':
+                os.system('clear')
+                break
+            else:
+                print('Please enter a valid option', flush=True)
+                sleep(2)
+                os.system('clear')
+                continue
 
 
 def edit_booking(booking): #Function for editing bookings
@@ -105,7 +105,7 @@ def edit_booking(booking): #Function for editing bookings
                     write_changes(booking, new_booking, True)
             case "6":
                 os.system('clear')
-                print("Changes have been cancelled")
+                print("Changes have been cancelled", flush=True)
                 sleep(2)
                 break
             case "7":
@@ -118,11 +118,11 @@ def edit_booking(booking): #Function for editing bookings
                     else:
                         break
                 else:
-                    print("Please select a valid option")
+                    print("Please select a valid option", flush=True)
                     sleep(2)
                     os.system('clear')
             case _:
-                print("Please select a valid option")
+                print("Please select a valid option", flush=True)
                 sleep(2)
                 os.system('clear')
 
@@ -135,8 +135,8 @@ def write_changes(old_booking, new_booking, delete):
                     f.write(line)
             if delete == False:
                 f.write("\n" + new_booking) #Adds the new(edited) booking
-                print("Your booking has successfully been edited")
+                print("Your booking has successfully been edited", flush=True)
                 sleep(3)
             elif delete == True: #Will not add the booking, just leaving original deleted
-                print("The booking has successfully been deleted")
+                print("The booking has successfully been deleted", flush=True)
                 sleep(3)
