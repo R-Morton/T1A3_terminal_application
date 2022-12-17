@@ -78,6 +78,11 @@ def booking_time(): #Returns service and time
 
 def time_checker(time): #Function that checks time input isnt above 60 minutes for each hour
     count = 1
+    if time.isdigit() == False:
+        print("Please enter a valid time", flush=True)
+        sleep(2)
+        os.system('clear')
+        return False
     for x in str(time):
         if count == 3:
             if int(x) > 5:
@@ -113,15 +118,15 @@ def confirm_booking(booking, edit): #Function to layout all the information for 
         service_name = "Lunch"
     elif booking.split()[1] == '3':
         service_name = "Dinner"
-    print("Booking details:")
-    print(f"Name - {booking.split()[2]} {booking.split()[3]}")
-    print(f"Phone Number - {booking.split()[4]}")
-    print(f"Service - {service_name}")
-    print(f"Time - {booking.split()[0]}")
-    print(f"Number of Guests - {booking.split()[5]}")
-    if edit == True: #If true, this will skip the rest and we are editing not creating. 
-        return
     while True:
+        print("Booking details:")
+        print(f"Name - {booking.split()[2]} {booking.split()[3]}")
+        print(f"Phone Number - {booking.split()[4]}")
+        print(f"Service - {service_name}")
+        print(f"Time - {booking.split()[0]}")
+        print(f"Number of Guests - {booking.split()[5]}")
+        if edit == True: #If true, this will skip the rest and we are editing not creating. 
+            return
         add_confirmation = input("Please confirm with 'Y' or 'N' to cancel: ")
         if add_confirmation.lower() == 'y':
             return booking
@@ -132,4 +137,5 @@ def confirm_booking(booking, edit): #Function to layout all the information for 
         else:
             print("Please input a valid response", flush=True)
             sleep(2)
+            os.system('clear')
             continue

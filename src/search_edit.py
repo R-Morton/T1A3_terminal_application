@@ -5,11 +5,9 @@ import os
 import re
 
 def search_booking(): #Function for searching for a customer before editing
-    bookings_file = open("src/bookings_list.txt", "r")
     matching_names = []
-    results = 0
     while True:
-        name_search = input("Please enter the name of a customer: ")
+        name_search = input("Input customer to search: ")
         if name_search.isspace() == True or name_search == "": #stops user from entering no name
             print("Please enter a name", flush=True)
             sleep(2)
@@ -17,45 +15,56 @@ def search_booking(): #Function for searching for a customer before editing
         else:
             os.system("clear")
             break
-    for line in bookings_file.readlines():
-        lower_line = line.lower()
-        if line.strip() == "":
-            continue
-        elif name_search.lower() in re.findall(name_search.lower(), lower_line): #Checks on each iteration if any name from input matches
-            results += 1
-            matching_names.append(line) #any matches getting added to list
-            print(f"{results} - {line.split()[0]} {line.split()[2]} {line.split()[3]} {line.split()[5]}pax")
+    while True:
+        results = 0
+        with open("src/bookings_list.txt", "r") as file:
+            for line in file.readlines():
+                lower_line = line.lower()
+                if line.strip() == "":
+                    continue
+                elif name_search.lower() in re.findall(name_search.lower(), lower_line): #Checks on each iteration if any name from input matches
+                    results += 1
+                    matching_names.append(line) #any matches getting added to list
+                    print(f"{results} - {line.split()[0]} {line.split()[2]} {line.split()[3]} {line.split()[5]}pax")
+                else:
+                    continue
+        if not matching_names:
+            print("No matches found", flush=True)
+            sleep(2)
+            return
         else:
-            continue
-    if not matching_names:
-        print("No matches found", flush=True)
-        sleep(2)
-    else:
-        user_input = int(input("Please select from the matches: "))
-        count = 1
-        for booking in matching_names:
-            if user_input == count: #Iterates and selects the correct booking the user entered
-                selected_booking = booking
-                os.system('clear')
-                add_bookings.confirm_booking(booking, True) #Using confirm booking function to display the full customer booking details
-                break
-            else:
-                count += 1
-                continue
-        edit_continue = input("Please press 1 to edit or 0 to go back: ")
-        while True:
-            if edit_continue == '1':
-                os.system('clear')
-                edit_booking(selected_booking)
-                break
-            elif edit_continue == '0':
-                os.system('clear')
-                break
-            else:
-                print('Please enter a valid option', flush=True)
+            count = 1
+            user_input = int(input("Please select from the matches: "))
+            if user_input > results:
+                print("Please select a valid option")
                 sleep(2)
                 os.system('clear')
-                continue
+            else:
+                break
+    for booking in matching_names:
+        if user_input == count: #Iterates and selects the correct booking the user entered
+            selected_booking = booking
+            os.system('clear')
+            add_bookings.confirm_booking(booking, True) #Using confirm booking function to display the full customer booking details
+            break
+        else:
+            count += 1
+            continue
+    while True:
+        edit_continue = input("Please press 1 to edit or 0 to go back: ")
+        if edit_continue == '1':
+            os.system('clear')
+            edit_booking(selected_booking)
+            break
+        elif edit_continue == '0':
+            os.system('clear')
+            break
+        else:
+            print('Please enter a valid option', flush=True)
+            sleep(2)
+            os.system('clear')
+            add_bookings.confirm_booking(booking, True)
+            continue
 
 
 def edit_booking(booking): #Function for editing bookings
