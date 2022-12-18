@@ -54,8 +54,9 @@ Duration of work - 2 days
 ## Setup/Usage
 
 ### Requirments
+Git (Windows or Mac)
 Python 3
-Bash
+
 
 ### Using app
 
