@@ -53,8 +53,9 @@ Duration of work - 2 days
 
 ## Setup/Usage
 
-### Requirments
+### Requirements
 Git (Windows or Mac)
+
 Python 3
 
 
